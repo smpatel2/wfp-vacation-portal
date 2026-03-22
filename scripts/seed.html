@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Seed Firestore</title>
+    <style>
+        body { font-family: monospace; padding: 2rem; background: #1a1a1a; color: #0f0; }
+        button { font-size: 1.2rem; padding: 0.5rem 1rem; cursor: pointer; }
+        #log { white-space: pre-wrap; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <h1>Firestore Seed Utility</h1>
+    <p>Click the button below to populate your Firestore with the initial doctor roster and config.</p>
+    <button onclick="runSeed()">Seed Firestore</button>
+    <div id="log"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getFirestore, collection, doc, setDoc, addDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+        import firebaseConfig from "../firebase-config.js";
+        import { seedFirestore } from "./seed-firestore.js";
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.runSeed = async function() {
+            const logEl = document.getElementById('log');
+            const origLog = console.log;
+            console.log = function(...args) {
+                origLog(...args);
+                logEl.textContent += args.join(' ') + '\n';
+            };
+
+            try {
+                await seedFirestore(db, collection, doc, setDoc, addDoc);
+            } catch (e) {
+                logEl.textContent += `\nERROR: ${e.message}\n`;
+            }
+        };
+    </script>
+</body>
+</html>

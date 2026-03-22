@@ -1,0 +1,30 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Config document (password, cutoff date) — read-only from client
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Doctors collection — read-only from client
+    match /doctors/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Vacation requests — anyone can read (for heatmap), anyone can write (portal submissions)
+    // Write validation: must include required fields
+    match /vacations/{vacId} {
+      allow read: if true;
+      allow create: if request.resource.data.keys().hasAll(['doctor', 'date', 'status'])
+                    && request.resource.data.doctor is string
+                    && request.resource.data.date is string
+                    && request.resource.data.status is string;
+      allow delete: if true;
+      allow update: if false;
+    }
+  }
+}

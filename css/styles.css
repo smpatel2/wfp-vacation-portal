@@ -1,0 +1,766 @@
+/* ============================================
+   Wheaton Family Practice Vacation Portal
+   Glassmorphism + Floating Cards Theme
+   ============================================ */
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Duly Health & Care brand palette */
+    --color-primary: #003B4A;
+    --color-primary-hover: #002D38;
+    --color-secondary: #008298;
+    --color-bg: #ffffff;
+    --color-surface: #F4F7F8;
+    --color-border: rgba(255, 255, 255, 0.6);
+    --color-border-subtle: rgba(0, 59, 74, 0.08);
+    --color-text: #1a2a2f;
+    --color-text-secondary: #4a6670;
+    --color-pending: #008298;
+    --color-pending-light: rgba(0, 130, 152, 0.15);
+    --color-submitted: #2E8540;
+    --color-submitted-light: rgba(46, 133, 64, 0.12);
+    --color-heatmap-1: #fff3cd;
+    --color-heatmap-2: #ffb74d;
+    --color-heatmap-3: #e53935;
+    --color-error: #c62828;
+    --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow-glass: 0 8px 32px rgba(0, 59, 74, 0.06);
+    --shadow-elevated: 0 12px 40px rgba(0, 59, 74, 0.08);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    font-size: 16px;
+}
+
+/* Animated mesh gradient background */
+body {
+    font-family: var(--font-family);
+    color: var(--color-text);
+    line-height: 1.5;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 20% 20%, #EBF4F6 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 10%, #E0F0F2 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, #F0F7F4 0%, transparent 50%),
+        linear-gradient(135deg, #F4F7F8 0%, #FAFCFD 50%, #F0F5F7 100%);
+    background-attachment: fixed;
+}
+
+/* Glass panel base class */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-glass);
+    border-radius: var(--radius);
+}
+
+/* --- Utility --- */
+[x-cloak] {
+    display: none !important;
+}
+
+/* --- Login --- */
+#login-container {
+    max-width: 400px;
+    margin: 15vh auto;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    /* Glass panel */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-elevated);
+    border-radius: var(--radius);
+    border-top: 3px solid var(--color-primary);
+}
+
+#login-container h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+    color: var(--color-primary);
+}
+
+#login-container h2 {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+/* --- Login Form --- */
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.error-message {
+    color: var(--color-error);
+    font-size: 0.8125rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(198, 40, 40, 0.06);
+    border-radius: var(--radius-sm);
+}
+
+.btn-full {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* --- Header --- */
+header {
+    margin: 1rem 1.5rem 0;
+    padding: 0.875rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    /* Glass panel — floating pill */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-glass);
+    border-radius: 999px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.doctor-badge {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.btn-logout {
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border-subtle);
+    padding: 0.375rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8125rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 59, 74, 0.06);
+}
+
+/* --- Main Layout --- */
+main {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#calendar-container {
+    flex: 1;
+    min-width: 0;
+    /* Glass panel */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-glass);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+}
+
+#date-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    /* Glass panel */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: var(--shadow-glass);
+    border-radius: var(--radius);
+    padding: 0.875rem;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Sidebar --- */
+#date-sidebar h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+}
+
+.date-section {
+    margin-bottom: 1rem;
+}
+
+.date-section-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+}
+
+.pending-label {
+    color: var(--color-pending);
+}
+
+.submitted-label {
+    color: var(--color-submitted);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.lock-badge {
+    font-size: 0.7rem;
+}
+
+/* Horizontal chip/pill layout for dates */
+.date-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.date-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.date-item.pending {
+    background: var(--color-pending-light);
+    color: var(--color-primary);
+}
+
+.date-item.submitted {
+    background: var(--color-submitted-light);
+    color: var(--color-submitted);
+}
+
+.btn-icon {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    font-size: 0.85rem;
+    line-height: 1;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: var(--transition);
+}
+
+.btn-icon:hover {
+    opacity: 1;
+}
+
+.empty-state {
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    text-align: center;
+    padding: 1.5rem 0.5rem;
+    line-height: 1.6;
+}
+
+/* Pinned action footer */
+.sidebar-actions {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-border-subtle);
+    position: sticky;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-left: -0.875rem;
+    margin-right: -0.875rem;
+    margin-bottom: -0.875rem;
+    padding: 0.75rem 0.875rem;
+    border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.pending-summary {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+}
+
+.btn-text:hover {
+    background: rgba(0, 59, 74, 0.04);
+}
+
+.submit-success {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    background: var(--color-submitted-light);
+    color: var(--color-submitted);
+}
+
+.submit-error {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    background: rgba(198, 40, 40, 0.06);
+    color: var(--color-error);
+}
+
+/* --- Calendar Overrides --- */
+
+/* Remove spreadsheet borders */
+.fc-theme-standard td,
+.fc-theme-standard th {
+    border: none;
+}
+
+.fc-theme-standard .fc-scrollgrid {
+    border: none;
+}
+
+/* Rounded hover targets on day cells */
+.fc .fc-daygrid-day-frame {
+    margin: 2px;
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-frame {
+    background: rgba(0, 130, 152, 0.06);
+    cursor: pointer;
+}
+
+/* Today: soft teal ring */
+.fc .fc-day-today {
+    background: transparent !important;
+}
+
+.fc .fc-day-today .fc-daygrid-day-frame {
+    border: 2px solid var(--color-secondary);
+    background: rgba(0, 130, 152, 0.04);
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+    font-weight: 700;
+    color: var(--color-secondary);
+}
+
+/* Hide default FullCalendar toolbar — replaced by custom nav */
+.fc .fc-header-toolbar {
+    display: none !important;
+}
+
+/* Custom calendar navigation — capsule style */
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 999px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calendar-nav-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    min-width: 5rem;
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+.btn-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-nav:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 59, 74, 0.06);
+    color: var(--color-primary);
+}
+
+.btn-nav-today {
+    width: auto;
+    border-radius: 999px;
+    padding: 0 0.875rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-family: var(--font-family);
+}
+
+/* Multi-month year view */
+.fc .fc-multimonth-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.fc .fc-multimonth-month {
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Event pills — rounded teal/green */
+.fc .fc-multimonth .fc-daygrid-event {
+    font-size: 0.6rem;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Hide "+N more" overflow links */
+.fc .fc-daygrid-more-link {
+    display: none !important;
+}
+
+.fc .fc-multimonth .fc-daygrid-day-number {
+    font-size: 0.8rem;
+    padding: 2px 4px;
+}
+
+/* Compact cell height */
+.fc .fc-multimonth .fc-multimonth-daygrid-table {
+    height: auto !important;
+}
+
+.fc .fc-multimonth .fc-daygrid-day {
+    height: auto !important;
+}
+
+.fc .fc-multimonth .fc-daygrid-day-frame {
+    min-height: 2.25rem;
+    height: auto;
+}
+
+.fc .fc-multimonth .fc-daygrid-body-natural .fc-daygrid-day-events {
+    margin-bottom: 0;
+}
+
+.fc .fc-multimonth .fc-daygrid-day-top {
+    flex-direction: row;
+}
+
+/* Day-of-week header polish */
+.fc .fc-multimonth .fc-col-header-cell {
+    background: rgba(244, 247, 248, 0.6);
+    border-bottom: 2px solid var(--color-border-subtle) !important;
+}
+
+.fc .fc-multimonth .fc-col-header-cell-cushion {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+    padding: 0.375rem 0.25rem;
+}
+
+/* --- Heatmap Tooltips --- */
+.heatmap-info-container {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 5;
+}
+
+.heatmap-info {
+    font-size: 0.7rem;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+.heatmap-info:hover {
+    opacity: 1;
+}
+
+.heatmap-tooltip {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.375rem 0.625rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 59, 74, 0.2);
+    z-index: 100;
+    pointer-events: none;
+}
+
+.heatmap-tooltip.visible {
+    display: block;
+}
+
+.fc-daygrid-day-frame {
+    position: relative;
+}
+
+/* --- Buttons --- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 59, 74, 0.15);
+}
+
+.btn-danger {
+    background: transparent;
+    color: var(--color-error);
+    padding: 0.25rem 0.5rem;
+}
+
+.btn-danger:hover {
+    background: rgba(198, 40, 40, 0.08);
+}
+
+/* --- Select with prefix (Dr.) --- */
+.select-with-prefix {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: inset 0 1px 3px rgba(0, 59, 74, 0.04);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.select-with-prefix:focus-within {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(0, 130, 152, 0.12);
+}
+
+.select-prefix {
+    padding: 0.625rem 0 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    font-family: var(--font-family);
+    white-space: nowrap;
+}
+
+.select-with-prefix select {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 0.375rem;
+}
+
+.select-with-prefix select:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+/* --- Forms --- */
+input,
+select {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-family: var(--font-family);
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--color-text);
+    transition: var(--transition);
+    box-shadow: inset 0 1px 3px rgba(0, 59, 74, 0.04);
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(0, 130, 152, 0.12);
+}
+
+label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    header {
+        margin: 0.75rem;
+        border-radius: var(--radius);
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    header h1 {
+        font-size: 0.9rem;
+        flex: 1;
+        min-width: 0;
+    }
+
+    main {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    #calendar-container {
+        padding: 0.75rem;
+    }
+
+    #date-sidebar {
+        width: 100%;
+        max-height: none;
+        position: static;
+    }
+
+    /* Smaller calendar text on mobile */
+    .fc .fc-daygrid-event {
+        font-size: 0.6rem;
+        padding: 1px 2px;
+    }
+
+    .fc .fc-col-header-cell-cushion {
+        font-size: 0.65rem;
+    }
+
+    .fc .fc-daygrid-day-number {
+        font-size: 0.75rem;
+        padding: 2px;
+    }
+
+    .heatmap-info {
+        font-size: 0.6rem;
+    }
+
+    .heatmap-tooltip {
+        white-space: normal;
+        max-width: 150px;
+    }
+
+    .calendar-nav {
+        padding: 0.375rem 0.75rem;
+    }
+
+    .calendar-nav-title {
+        font-size: 1.25rem;
+    }
+}
