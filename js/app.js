@@ -10,6 +10,7 @@ function app() {
         doctorName: '',
         doctors: [],
         password: '',
+        showPassword: false,
         loginError: '',
         loginLoading: false,
         configPassword: '',
@@ -272,7 +273,10 @@ function app() {
             // Create tooltip for hover
             const tooltip = document.createElement('div');
             tooltip.className = 'heatmap-tooltip';
-            tooltip.innerHTML = `<strong>${doctors.length} off:</strong> ${doctors.join(', ')}`;
+            const strong = document.createElement('strong');
+            strong.textContent = `${doctors.length} off: `;
+            tooltip.appendChild(strong);
+            tooltip.appendChild(document.createTextNode(doctors.join(', ')));
 
             icon.addEventListener('mouseenter', () => {
                 tooltip.classList.add('visible');

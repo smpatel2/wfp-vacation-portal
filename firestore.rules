@@ -16,13 +16,16 @@ service cloud.firestore {
     }
 
     // Vacation requests — anyone can read (for heatmap), anyone can write (portal submissions)
-    // Write validation: must include required fields
     match /vacations/{vacId} {
       allow read: if true;
-      allow create: if request.resource.data.keys().hasAll(['doctor', 'date', 'status'])
+      allow create: if request.resource.data.keys().hasOnly(['doctor', 'date', 'status', 'createdAt'])
+                    && request.resource.data.keys().hasAll(['doctor', 'date', 'status'])
                     && request.resource.data.doctor is string
+                    && request.resource.data.doctor.size() > 0
+                    && request.resource.data.doctor.size() < 50
                     && request.resource.data.date is string
-                    && request.resource.data.status is string;
+                    && request.resource.data.date.matches('[0-9]{4}-[0-9]{2}-[0-9]{2}')
+                    && request.resource.data.status in ['Pending', 'Approved', 'submitted'];
       allow delete: if true;
       allow update: if false;
     }

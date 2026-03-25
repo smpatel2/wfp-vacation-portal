@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Alpine.js -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 
     <!-- FullCalendar -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
@@ -50,13 +50,19 @@
 
                 <div class="form-group">
                     <label for="password-input">Password</label>
-                    <input
-                        id="password-input"
-                        type="password"
-                        x-model="password"
-                        placeholder="Enter practice password"
-                        required
-                    >
+                    <div class="password-wrapper">
+                        <input
+                            id="password-input"
+                            :type="showPassword ? 'text' : 'password'"
+                            x-model="password"
+                            placeholder="Enter practice password"
+                            required
+                        >
+                        <button type="button" class="btn-peek" @click="showPassword = !showPassword" tabindex="-1" title="Toggle password visibility">
+                            <span x-show="!showPassword">👁</span>
+                            <span x-show="showPassword" x-cloak>👁‍🗨</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div x-show="loginError" class="error-message" x-text="loginError" x-cloak></div>
