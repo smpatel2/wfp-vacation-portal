@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wheaton Family Practice Vacation Portal</title>
 
-    <!-- Typography -->
+    <!-- Typography — Outfit 300/400/600/700/900 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
@@ -24,59 +24,76 @@
     </script>
 
     <!-- App styles -->
-    <link rel="stylesheet" href="css/styles.css?v=6">
+    <link rel="stylesheet" href="css/styles.css?v=7">
 </head>
 <body x-data="app()">
 
-    <!-- Login View -->
+    <!-- ===================== LOGIN VIEW ===================== -->
     <div x-show="!authenticated" x-cloak>
-        <div id="login-container">
-            <h1>Wheaton Family Practice</h1>
-            <h2>Vacation Portal</h2>
+        <div id="login-wrap">
+            <div id="login-container">
 
-            <form @submit.prevent="login" class="login-form">
-                <div class="form-group">
-                    <label for="doctor-select">Physician</label>
-                    <div class="select-with-prefix">
-                        <span class="select-prefix">Dr.</span>
-                        <select id="doctor-select" x-model="doctorName" required>
-                            <option value="" disabled>Select your name</option>
-                            <template x-for="doc in doctors" :key="doc.name">
-                                <option :value="doc.name" x-text="doc.name"></option>
-                            </template>
-                        </select>
-                    </div>
+                <!-- Dark navy header block -->
+                <div class="login-header">
+                    <h1>Wheaton Family Practice</h1>
+                    <h2>Vacation Portal</h2>
                 </div>
 
-                <div class="form-group">
-                    <label for="password-input">Password</label>
-                    <div class="password-wrapper">
-                        <input
-                            id="password-input"
-                            :type="showPassword ? 'text' : 'password'"
-                            x-model="password"
-                            placeholder="Enter practice password"
-                            required
-                        >
-                        <button type="button" class="btn-peek" @click="showPassword = !showPassword" tabindex="-1" title="Toggle password visibility">
-                            <span x-show="!showPassword">👁</span>
-                            <span x-show="showPassword" x-cloak>👁‍🗨</span>
+                <!-- Duly signature accent divider -->
+                <div class="duly-divider">
+                    <div class="duly-divider-navy"></div>
+                    <div class="duly-divider-teal"></div>
+                </div>
+
+                <!-- Form body -->
+                <div class="login-body">
+                    <form @submit.prevent="login" class="login-form">
+                        <div class="form-group">
+                            <label for="doctor-select">Physician</label>
+                            <div class="select-with-prefix">
+                                <span class="select-prefix">Dr.</span>
+                                <select id="doctor-select" x-model="doctorName" required>
+                                    <option value="" disabled>Select your name</option>
+                                    <template x-for="doc in doctors" :key="doc.name">
+                                        <option :value="doc.name" x-text="doc.name"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password-input">Password</label>
+                            <div class="password-wrapper">
+                                <input
+                                    id="password-input"
+                                    :type="showPassword ? 'text' : 'password'"
+                                    x-model="password"
+                                    placeholder="Enter practice password"
+                                    required
+                                >
+                                <button type="button" class="btn-peek" @click="showPassword = !showPassword" tabindex="-1" title="Toggle password visibility">
+                                    <span x-show="!showPassword">👁</span>
+                                    <span x-show="showPassword" x-cloak>👁‍🗨</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div x-show="loginError" class="error-message" x-text="loginError" x-cloak></div>
+
+                        <button type="submit" class="btn btn-primary btn-full" :disabled="loginLoading">
+                            <span x-show="!loginLoading">Sign In</span>
+                            <span x-show="loginLoading" x-cloak>Signing in…</span>
                         </button>
-                    </div>
+                    </form>
                 </div>
-
-                <div x-show="loginError" class="error-message" x-text="loginError" x-cloak></div>
-
-                <button type="submit" class="btn btn-primary btn-full" :disabled="loginLoading">
-                    <span x-show="!loginLoading">Sign In</span>
-                    <span x-show="loginLoading" x-cloak>Signing in...</span>
-                </button>
-            </form>
+            </div>
         </div>
     </div>
 
-    <!-- Main App View -->
+    <!-- ===================== MAIN APP VIEW ===================== -->
     <div x-show="authenticated" x-cloak>
+
+        <!-- Sticky header -->
         <header>
             <div class="header-left"></div>
             <h1>Wheaton Family Practice Vacation Portal</h1>
@@ -86,7 +103,14 @@
             </div>
         </header>
 
+        <!-- Duly accent divider under header -->
+        <div class="duly-divider">
+            <div class="duly-divider-navy"></div>
+            <div class="duly-divider-teal"></div>
+        </div>
+
         <main>
+            <!-- Calendar panel -->
             <div id="calendar-container">
                 <div class="calendar-nav">
                     <button class="btn-nav" @click="calendarPrev()" title="Previous year">&#8249;</button>
@@ -97,10 +121,11 @@
                 <div id="calendar-el"></div>
             </div>
 
+            <!-- Sidebar -->
             <aside id="date-sidebar">
                 <h3>Selected Dates</h3>
 
-                <!-- Pending dates -->
+                <!-- Pending -->
                 <template x-if="pendingDates.length > 0">
                     <div class="date-section">
                         <h4 class="date-section-label pending-label">Pending</h4>
@@ -115,7 +140,7 @@
                     </div>
                 </template>
 
-                <!-- Submitted dates -->
+                <!-- Submitted -->
                 <template x-if="submittedDates.length > 0">
                     <div class="date-section">
                         <h4 class="date-section-label submitted-label">
@@ -141,15 +166,15 @@
                 <!-- Empty state -->
                 <p x-show="pendingDates.length === 0 && submittedDates.length === 0"
                    class="empty-state">
-                    Click or drag on the calendar to select vacation dates.
+                    Click or drag on the<br>calendar to select<br>vacation dates.
                 </p>
 
-                <!-- Actions -->
+                <!-- Pinned actions -->
                 <div class="sidebar-actions" x-show="pendingDates.length > 0">
                     <div class="pending-summary" x-text="pendingDates.length + ' day(s) selected'"></div>
                     <button class="btn btn-primary btn-full" @click="submitDates" :disabled="submitting">
                         <span x-show="!submitting">Submit Dates</span>
-                        <span x-show="submitting" x-cloak>Submitting...</span>
+                        <span x-show="submitting" x-cloak>Submitting…</span>
                     </button>
                     <button class="btn btn-text btn-full" @click="clearPendingDates">Clear All</button>
                 </div>
@@ -164,6 +189,6 @@
     </div>
 
     <!-- App logic -->
-    <script src="js/app.js?v=5"></script>
+    <script src="js/app.js?v=6"></script>
 </body>
 </html>

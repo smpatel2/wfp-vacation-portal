@@ -1,6 +1,6 @@
 /* ============================================
    Wheaton Family Practice Vacation Portal
-   Glassmorphism + Floating Cards Theme
+   Duly Health & Care — Editorial Medical Theme
    ============================================ */
 
 /* --- Reset & Base --- */
@@ -13,103 +13,130 @@
 }
 
 :root {
-    /* Duly Health & Care brand palette */
-    --color-primary: #003B4A;
-    --color-primary-hover: #002D38;
-    --color-secondary: #008298;
-    --color-bg: #ffffff;
-    --color-surface: #F4F7F8;
-    --color-border: rgba(255, 255, 255, 0.6);
-    --color-border-subtle: rgba(0, 59, 74, 0.08);
-    --color-text: #1a2a2f;
-    --color-text-secondary: #4a6670;
-    --color-pending: #008298;
-    --color-pending-light: rgba(0, 130, 152, 0.15);
-    --color-submitted: #2E8540;
-    --color-submitted-light: rgba(46, 133, 64, 0.12);
-    --color-heatmap-1: #fff3cd;
-    --color-heatmap-2: #ffb74d;
-    --color-heatmap-3: #e53935;
-    --color-error: #c62828;
-    --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --shadow-glass: 0 8px 32px rgba(0, 59, 74, 0.06);
-    --shadow-elevated: 0 12px 40px rgba(0, 59, 74, 0.08);
-    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Duly Health exact brand palette */
+    --oxford:       #003B4A;
+    --oxford-80:    rgba(0, 59, 74, 0.80);
+    --oxford-20:    rgba(0, 59, 74, 0.20);
+    --oxford-10:    rgba(0, 59, 74, 0.10);
+    --oxford-06:    rgba(0, 59, 74, 0.06);
+    --sky:          #008298;
+    --sky-10:       rgba(0, 130, 152, 0.10);
+    --sky-15:       rgba(0, 130, 152, 0.15);
+    --green:        #2E8540;
+    --green-12:     rgba(46, 133, 64, 0.12);
+    --error:        #C62828;
+    --error-08:     rgba(198, 40, 40, 0.08);
+
+    /* Neutrals */
+    --white:        #ffffff;
+    --bg:           #F7F9FA;
+    --text:         #0D1F26;
+    --text-muted:   #4a6670;
+    --border:       rgba(0, 59, 74, 0.12);
+
+    /* Typography */
+    --font:         'Outfit', system-ui, sans-serif;
+
+    /* Duly asymmetric radius — signature diagonal rhythm */
+    --radius-card:  0px 32px 0px 32px;
+    --radius-pill:  999px;
+    --radius-sm:    10px;
+
+    /* Shadows */
+    --shadow-sm:    0 1px 4px rgba(0,59,74,0.08);
+    --shadow-md:    0 4px 20px rgba(0,59,74,0.08);
+    --shadow-lg:    0 12px 40px rgba(0,59,74,0.10);
+
+    /* Motion */
+    --ease:         cubic-bezier(0.4, 0, 0.2, 1);
+    --transition:   all 0.22s var(--ease);
 }
 
-html {
-    font-size: 16px;
-}
+html { font-size: 16px; }
 
-/* Animated mesh gradient background */
 body {
-    font-family: var(--font-family);
-    color: var(--color-text);
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--white);
     line-height: 1.5;
     min-height: 100vh;
-    background:
-        radial-gradient(ellipse at 20% 20%, #EBF4F6 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 10%, #E0F0F2 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, #F0F7F4 0%, transparent 50%),
-        linear-gradient(135deg, #F4F7F8 0%, #FAFCFD 50%, #F0F5F7 100%);
-    background-attachment: fixed;
 }
 
-/* Glass panel base class */
-.glass-panel {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: var(--shadow-glass);
-    border-radius: var(--radius);
+[x-cloak] { display: none !important; }
+
+/* ============================================
+   DULY ACCENT DIVIDER — signature split bar
+   Navy 2/6 + Teal 4/6
+   ============================================ */
+.duly-divider {
+    display: flex;
+    height: 6px;
+    width: 100%;
+}
+.duly-divider-navy {
+    background: var(--oxford);
+    width: 33.333%;
+    border-radius: 0 0 0 999px;
+}
+.duly-divider-teal {
+    background: var(--sky);
+    flex: 1;
+    border-radius: 0 0 999px 0;
 }
 
-/* --- Utility --- */
-[x-cloak] {
-    display: none !important;
+/* ============================================
+   LOGIN PAGE
+   ============================================ */
+#login-wrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    padding: 2rem;
 }
 
-/* --- Login --- */
 #login-container {
+    width: 100%;
     max-width: 400px;
-    margin: 15vh auto;
-    padding: 2.5rem 2rem 2rem;
-    text-align: center;
-    /* Glass panel */
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: var(--shadow-elevated);
-    border-radius: var(--radius);
-    border-top: 3px solid var(--color-primary);
+    background: var(--white);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
 }
 
-#login-container h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+.login-header {
+    background: var(--oxford);
+    padding: 2rem 2rem 1.5rem;
+    position: relative;
+}
+
+.login-header h1 {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
     margin-bottom: 0.25rem;
-    color: var(--color-primary);
 }
 
-#login-container h2 {
-    font-size: 1rem;
-    font-weight: 400;
-    color: var(--color-text-secondary);
-    margin-bottom: 1.5rem;
+.login-header h2 {
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
-/* --- Login Form --- */
-.login-form {
-    text-align: left;
+.login-body {
+    padding: 2rem;
 }
+
+.login-form {}
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.125rem;
 }
 
 /* Password peek toggle */
@@ -130,429 +157,260 @@ body {
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    opacity: 0.5;
+    opacity: 0.4;
     transition: var(--transition);
     padding: 0.25rem;
     line-height: 1;
 }
 
-.btn-peek:hover {
-    opacity: 0.9;
-}
+.btn-peek:hover { opacity: 0.85; }
 
 .error-message {
-    color: var(--color-error);
+    color: var(--error);
     font-size: 0.8125rem;
     margin-bottom: 0.75rem;
     padding: 0.5rem 0.75rem;
-    background: rgba(198, 40, 40, 0.06);
+    background: var(--error-08);
     border-radius: var(--radius-sm);
+    border-left: 3px solid var(--error);
 }
 
 .btn-full {
     width: 100%;
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
 }
 
-/* --- Header --- */
+/* ============================================
+   HEADER — floating pill, centered title
+   ============================================ */
 header {
-    margin: 1rem 1.5rem 0;
-    padding: 0.875rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: relative;
-    /* Glass panel — floating pill */
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: var(--shadow-glass);
-    border-radius: 999px;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 0.75rem 1.5rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
+.header-left { width: 120px; }
+
 header h1 {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    white-space: nowrap;
-    pointer-events: none;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--oxford);
+    letter-spacing: -0.01em;
+    text-align: center;
 }
 
 .header-right {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    width: 120px;
+    justify-content: flex-end;
 }
 
 .doctor-badge {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
 }
 
 .btn-logout {
-    background: rgba(255, 255, 255, 0.5);
-    color: var(--color-text-secondary);
-    border: 1px solid var(--color-border-subtle);
-    padding: 0.375rem 0.75rem;
-    border-radius: 999px;
-    font-size: 0.8125rem;
-    font-family: var(--font-family);
+    background: transparent;
+    color: var(--oxford);
+    border: 1.5px solid var(--oxford-20);
+    padding: 0.3rem 0.875rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: var(--font);
     cursor: pointer;
     transition: var(--transition);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .btn-logout:hover {
-    background: rgba(255, 255, 255, 0.8);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 59, 74, 0.06);
+    border-color: var(--sky);
+    background: var(--sky-10);
+    color: var(--sky);
 }
 
-/* --- Main Layout --- */
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
 main {
     display: flex;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1.25rem;
+    padding: 1.25rem;
     max-width: 1400px;
     margin: 0 auto;
 }
 
+/* ============================================
+   CALENDAR CONTAINER
+   ============================================ */
 #calendar-container {
     flex: 1;
     min-width: 0;
-    /* Glass panel */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: var(--shadow-glass);
-    border-radius: var(--radius);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
     padding: 1.25rem;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
 }
 
-#date-sidebar {
-    width: 220px;
-    flex-shrink: 0;
-    /* Glass panel */
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    box-shadow: var(--shadow-glass);
-    border-radius: var(--radius);
-    padding: 0.875rem;
-    position: sticky;
-    top: 1rem;
-    max-height: calc(100vh - 2rem);
-    overflow-y: auto;
-    align-self: flex-start;
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- Sidebar --- */
-#date-sidebar h3 {
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--color-primary);
-}
-
-.date-section {
-    margin-bottom: 1rem;
-}
-
-.date-section-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.5rem;
-}
-
-.pending-label {
-    color: var(--color-pending);
-}
-
-.submitted-label {
-    color: var(--color-submitted);
+/* Custom nav bar */
+.calendar-nav {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
 }
 
-.lock-badge {
-    font-size: 0.7rem;
+.calendar-nav-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--oxford);
+    letter-spacing: -0.03em;
+    min-width: 5rem;
+    text-align: center;
 }
 
-/* Horizontal chip/pill layout for dates */
-.date-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.date-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 500;
-    transition: var(--transition);
-}
-
-.date-item.pending {
-    background: var(--color-pending-light);
-    color: var(--color-primary);
-}
-
-.date-item.submitted {
-    background: var(--color-submitted-light);
-    color: var(--color-submitted);
-}
-
-.btn-icon {
-    width: 18px;
-    height: 18px;
-    padding: 0;
-    font-size: 0.85rem;
-    line-height: 1;
-    border-radius: 50%;
+/* Ghost outlined nav buttons — Duly style */
+.btn-nav {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.6;
-    transition: var(--transition);
-}
-
-.btn-icon:hover {
-    opacity: 1;
-}
-
-.empty-state {
-    color: var(--color-text-secondary);
-    font-size: 0.8125rem;
-    text-align: center;
-    padding: 1.5rem 0.5rem;
-    line-height: 1.6;
-}
-
-/* Pinned action footer */
-.sidebar-actions {
-    margin-top: auto;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-border-subtle);
-    position: sticky;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    margin-left: -0.875rem;
-    margin-right: -0.875rem;
-    margin-bottom: -0.875rem;
-    padding: 0.75rem 0.875rem;
-    border-radius: 0 0 var(--radius) var(--radius);
-}
-
-.pending-summary {
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.btn-text {
+    width: 36px;
+    height: 36px;
     background: transparent;
-    color: var(--color-text-secondary);
-    font-size: 0.8125rem;
+    border: 1.5px solid var(--oxford-20);
+    border-radius: var(--radius-pill);
+    color: var(--oxford);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    padding: 0;
+    font-family: var(--font);
 }
 
-.btn-text:hover {
-    background: rgba(0, 59, 74, 0.04);
+.btn-nav:hover {
+    border-color: var(--sky);
+    background: var(--sky-10);
+    color: var(--sky);
+    transform: translateY(-1px);
 }
 
-.submit-success {
-    margin-top: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.8125rem;
-    background: var(--color-submitted-light);
-    color: var(--color-submitted);
+.btn-nav-today {
+    width: auto;
+    padding: 0 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
 }
 
-.submit-error {
-    margin-top: 0.75rem;
-    padding: 0.5rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.8125rem;
-    background: rgba(198, 40, 40, 0.06);
-    color: var(--color-error);
-}
+/* ============================================
+   FULLCALENDAR OVERRIDES
+   ============================================ */
 
-/* --- Calendar Overrides --- */
-
-/* Remove spreadsheet borders */
+/* Strip default borders */
 .fc-theme-standard td,
 .fc-theme-standard th {
     border: none;
 }
-
 .fc-theme-standard .fc-scrollgrid {
     border: none;
 }
 
-/* Rounded hover targets on day cells */
+/* Hide default toolbar */
+.fc .fc-header-toolbar {
+    display: none !important;
+}
+
+/* Day cell hover — soft rounded target */
 .fc .fc-daygrid-day-frame {
     margin: 2px;
-    border-radius: 12px;
-    transition: var(--transition);
+    border-radius: 10px;
+    transition: background 0.15s var(--ease);
+    position: relative;
 }
 
 .fc .fc-daygrid-day:hover .fc-daygrid-day-frame {
-    background: rgba(0, 130, 152, 0.06);
+    background: var(--sky-10);
     cursor: pointer;
 }
 
-/* Today: soft teal ring */
+/* Today — teal outline ring */
 .fc .fc-day-today {
     background: transparent !important;
 }
 
 .fc .fc-day-today .fc-daygrid-day-frame {
-    border: 2px solid var(--color-secondary);
-    background: rgba(0, 130, 152, 0.04);
+    outline: 2px solid var(--sky);
+    outline-offset: -2px;
+    background: var(--sky-10);
 }
 
 .fc .fc-day-today .fc-daygrid-day-number {
-    font-weight: 700;
-    color: var(--color-secondary);
+    font-weight: 800;
+    color: var(--sky);
 }
 
-/* Hide default FullCalendar toolbar — replaced by custom nav */
-.fc .fc-header-toolbar {
-    display: none !important;
-}
-
-/* Custom calendar navigation — capsule style */
-.calendar-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1.25rem;
-    padding: 0.5rem 1rem;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 999px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.calendar-nav-title {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    min-width: 5rem;
-    text-align: center;
-    letter-spacing: -0.01em;
-}
-
-.btn-nav {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: var(--transition);
-    padding: 0;
-    line-height: 1;
-}
-
-.btn-nav:hover {
-    background: rgba(255, 255, 255, 0.9);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 59, 74, 0.06);
-    color: var(--color-primary);
-}
-
-.btn-nav-today {
-    width: auto;
-    border-radius: 999px;
-    padding: 0 0.875rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    font-family: var(--font-family);
-}
-
-/* Multi-month year view */
+/* Month title — asymmetric card header */
 .fc .fc-multimonth-title {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.625rem 1rem;
+    background: var(--oxford);
+    color: var(--white);
+}
+
+/* Month card — Duly asymmetric corners */
+.fc .fc-multimonth-month {
+    border: 1px solid var(--border);
+    border-radius: 0 20px 0 20px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    background: var(--white);
+}
+
+/* Day number */
+.fc .fc-multimonth .fc-daygrid-day-number {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 2px 5px;
+    color: var(--text);
+}
+
+/* Day-of-week header */
+.fc .fc-multimonth .fc-col-header-cell {
+    background: var(--oxford-06);
+    border-bottom: 2px solid var(--oxford-10) !important;
+}
+
+.fc .fc-multimonth .fc-col-header-cell-cushion {
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: 0.5rem 0.75rem;
-    background: var(--color-primary);
-    color: #fff;
-    border-radius: var(--radius) var(--radius) 0 0;
-}
-
-.fc .fc-multimonth-month {
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius);
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* Event pills — rounded teal/green */
-.fc .fc-multimonth .fc-daygrid-event {
-    font-size: 0.6rem;
-    padding: 1px 6px;
-    border-radius: 10px;
-    font-weight: 500;
-}
-
-/* Hide "+N more" overflow links */
-.fc .fc-daygrid-more-link {
-    display: none !important;
-}
-
-.fc .fc-multimonth .fc-daygrid-day-number {
-    font-size: 0.8rem;
-    padding: 2px 4px;
+    color: var(--text-muted);
+    padding: 0.4rem 0.25rem;
 }
 
 /* Compact cell height */
-.fc .fc-multimonth .fc-multimonth-daygrid-table {
-    height: auto !important;
-}
-
-.fc .fc-multimonth .fc-daygrid-day {
-    height: auto !important;
-}
-
 .fc .fc-multimonth .fc-daygrid-day-frame {
-    min-height: 2.25rem;
+    min-height: 2.125rem;
     height: auto;
 }
 
@@ -564,22 +422,187 @@ main {
     flex-direction: row;
 }
 
-/* Day-of-week header polish */
-.fc .fc-multimonth .fc-col-header-cell {
-    background: rgba(244, 247, 248, 0.6);
-    border-bottom: 2px solid var(--color-border-subtle) !important;
-}
-
-.fc .fc-multimonth .fc-col-header-cell-cushion {
-    font-size: 0.7rem;
+/* Event pills */
+.fc .fc-multimonth .fc-daygrid-event {
+    font-size: 0.6rem;
+    padding: 1px 5px;
+    border-radius: 8px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-    padding: 0.375rem 0.25rem;
 }
 
-/* --- Heatmap Tooltips --- */
+/* Hide "+N more" */
+.fc .fc-daygrid-more-link {
+    display: none !important;
+}
+
+/* ============================================
+   SIDEBAR
+   ============================================ */
+#date-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: calc(53px + 1.25rem);
+    max-height: calc(100vh - 53px - 2.5rem);
+    overflow-y: auto;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+}
+
+#date-sidebar h3 {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--oxford);
+    margin-bottom: 0.875rem;
+}
+
+.date-section {
+    margin-bottom: 0.875rem;
+}
+
+.date-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 0.5rem;
+}
+
+.pending-label { color: var(--sky); }
+.submitted-label {
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+.lock-badge { font-size: 0.65rem; }
+
+/* Date chips */
+.date-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.date-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.date-item.pending {
+    background: var(--sky-15);
+    color: var(--sky);
+    border: 1px solid rgba(0,130,152,0.25);
+}
+
+.date-item.submitted {
+    background: var(--green-12);
+    color: var(--green);
+    border: 1px solid rgba(46,133,64,0.2);
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    font-size: 0.8rem;
+    line-height: 1;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: var(--transition);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+.btn-icon:hover { opacity: 1; }
+
+.empty-state {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 1.5rem 0.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* Pinned submit footer */
+.sidebar-actions {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    position: sticky;
+    bottom: 0;
+    background: var(--white);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-bottom: -1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 0 32px;
+}
+
+.pending-summary {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.btn-text {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    border: none;
+}
+
+.btn-text:hover {
+    background: var(--oxford-06);
+    color: var(--oxford);
+}
+
+.submit-success {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    background: var(--green-12);
+    color: var(--green);
+    border-left: 3px solid var(--green);
+}
+
+.submit-error {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    background: var(--error-08);
+    color: var(--error);
+    border-left: 3px solid var(--error);
+}
+
+/* ============================================
+   HEATMAP TOOLTIPS
+   ============================================ */
 .heatmap-info-container {
     position: absolute;
     top: 2px;
@@ -588,109 +611,147 @@ main {
 }
 
 .heatmap-info {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     cursor: pointer;
-    opacity: 0.5;
+    opacity: 0.4;
     transition: var(--transition);
 }
 
-.heatmap-info:hover {
-    opacity: 1;
-}
+.heatmap-info:hover { opacity: 1; }
 
 .heatmap-tooltip {
     display: none;
     position: absolute;
     top: 100%;
     right: 0;
-    background: var(--color-primary);
-    color: #fff;
+    background: var(--oxford);
+    color: var(--white);
     padding: 0.375rem 0.625rem;
     border-radius: var(--radius-sm);
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(0, 59, 74, 0.2);
+    box-shadow: var(--shadow-md);
     z-index: 100;
     pointer-events: none;
 }
 
-.heatmap-tooltip.visible {
-    display: block;
-}
+.heatmap-tooltip.visible { display: block; }
 
-.fc-daygrid-day-frame {
-    position: relative;
-}
+.fc-daygrid-day-frame { position: relative; }
 
-/* --- Buttons --- */
+/* ============================================
+   BUTTONS
+   ============================================ */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: var(--radius-sm);
+    padding: 0.5rem 1.125rem;
+    border-radius: var(--radius-pill);
     font-size: 0.875rem;
-    font-weight: 500;
-    font-family: var(--font-family);
+    font-weight: 700;
+    font-family: var(--font);
     cursor: pointer;
     transition: var(--transition);
+    letter-spacing: 0.01em;
 }
 
+/* Duly ghost button — outlined navy, sky hover */
 .btn-primary {
-    background: var(--color-primary);
-    color: #fff;
+    background: var(--oxford);
+    color: var(--white);
+    border: 1.5px solid var(--oxford);
 }
 
 .btn-primary:hover {
-    background: var(--color-primary-hover);
+    background: var(--sky);
+    border-color: var(--sky);
     transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(0, 59, 74, 0.15);
+    box-shadow: 0 4px 16px rgba(0,130,152,0.2);
+}
+
+.btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn-danger {
     background: transparent;
-    color: var(--color-error);
-    padding: 0.25rem 0.5rem;
+    color: var(--error);
+    padding: 0.2rem 0.4rem;
+    border: none;
 }
 
-.btn-danger:hover {
-    background: rgba(198, 40, 40, 0.08);
+.btn-danger:hover { background: var(--error-08); }
+
+/* ============================================
+   FORMS
+   ============================================ */
+input,
+select {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-family: var(--font);
+    background: var(--white);
+    color: var(--text);
+    transition: var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-/* --- Select with prefix (Dr.) --- */
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px var(--sky-15);
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-bottom: 0.375rem;
+}
+
+/* Dr. prefix select group */
 .select-with-prefix {
     display: flex;
     align-items: center;
-    gap: 0;
-    border: 1px solid var(--color-border-subtle);
+    border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
-    background: rgba(255, 255, 255, 0.5);
-    box-shadow: inset 0 1px 3px rgba(0, 59, 74, 0.04);
+    background: var(--white);
     overflow: hidden;
     transition: var(--transition);
 }
 
 .select-with-prefix:focus-within {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 0 3px rgba(0, 130, 152, 0.12);
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px var(--sky-15);
 }
 
 .select-prefix {
-    padding: 0.625rem 0 0.625rem 0.75rem;
+    padding: 0.625rem 0 0.625rem 0.875rem;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    font-family: var(--font-family);
+    font-weight: 800;
+    color: var(--oxford);
     white-space: nowrap;
+    font-family: var(--font);
+    user-select: none;
 }
 
 .select-with-prefix select {
     border: none;
-    background: transparent;
     box-shadow: none;
-    padding-left: 0.375rem;
+    background: transparent;
+    padding-left: 0.25rem;
+    border-radius: 0;
 }
 
 .select-with-prefix select:focus {
@@ -699,58 +760,23 @@ main {
     outline: none;
 }
 
-/* --- Forms --- */
-input,
-select {
-    width: 100%;
-    padding: 0.625rem 0.75rem;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    font-size: 0.875rem;
-    font-family: var(--font-family);
-    background: rgba(255, 255, 255, 0.5);
-    color: var(--color-text);
-    transition: var(--transition);
-    box-shadow: inset 0 1px 3px rgba(0, 59, 74, 0.04);
-}
-
-input:focus,
-select:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.95);
-    border-color: var(--color-secondary);
-    box-shadow: 0 0 0 3px rgba(0, 130, 152, 0.12);
-}
-
-label {
-    display: block;
-    font-size: 0.8125rem;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-bottom: 0.25rem;
-}
-
-/* --- Responsive --- */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 768px) {
     header {
-        margin: 0.75rem;
-        border-radius: var(--radius);
-        flex-wrap: wrap;
-        gap: 0.5rem;
+        padding: 0.75rem 1rem;
     }
 
     header h1 {
-        font-size: 0.9rem;
-        flex: 1;
-        min-width: 0;
+        font-size: 0.875rem;
     }
+
+    .header-left,
+    .header-right { width: auto; }
 
     main {
         flex-direction: column;
-        padding: 1rem;
-    }
-
-    #calendar-container {
         padding: 0.75rem;
     }
 
@@ -758,37 +784,28 @@ label {
         width: 100%;
         max-height: none;
         position: static;
+        border-radius: var(--radius-card);
     }
 
-    /* Smaller calendar text on mobile */
-    .fc .fc-daygrid-event {
-        font-size: 0.6rem;
-        padding: 1px 2px;
+    #calendar-container {
+        padding: 0.75rem;
     }
 
     .fc .fc-col-header-cell-cushion {
-        font-size: 0.65rem;
+        font-size: 0.6rem;
     }
 
     .fc .fc-daygrid-day-number {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         padding: 2px;
-    }
-
-    .heatmap-info {
-        font-size: 0.6rem;
     }
 
     .heatmap-tooltip {
         white-space: normal;
-        max-width: 150px;
-    }
-
-    .calendar-nav {
-        padding: 0.375rem 0.75rem;
+        max-width: 140px;
     }
 
     .calendar-nav-title {
-        font-size: 1.25rem;
+        font-size: 1.4rem;
     }
 }
