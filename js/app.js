@@ -134,6 +134,7 @@ function app() {
                 headerToolbar: false,
                 height: 'auto',
                 multiMonthMaxColumns: 3,
+                fixedWeekCount: false,
                 selectable: true,
                 unselectAuto: true,
                 selectMirror: true,

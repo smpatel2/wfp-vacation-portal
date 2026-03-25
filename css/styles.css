@@ -444,6 +444,16 @@ main {
     display: none !important;
 }
 
+/* Hide disabled placeholder cells (empty trailing weeks in multimonth) */
+.fc .fc-day-disabled {
+    visibility: hidden;
+}
+
+/* Collapse rows where ALL cells are disabled (fully empty weeks) */
+.fc .fc-daygrid-body tr:not(:has(.fc-day:not(.fc-day-disabled))) {
+    display: none;
+}
+
 /* ============================================
    SIDEBAR
    ============================================ */
