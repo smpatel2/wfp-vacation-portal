@@ -133,10 +133,14 @@ function app() {
 
             // Store Alpine's reactive proxy reference
             const alpine = this;
+            const now = new Date();
+            const rangeStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+            const rangeEnd = `${now.getFullYear() + 1}-01-01`;
             this.calendar = new FullCalendar.Calendar(document.getElementById('calendar-el'), {
                 initialView: 'multiMonthYear',
                 headerToolbar: false,
                 height: 'auto',
+                validRange: { start: rangeStart, end: rangeEnd },
                 multiMonthMaxColumns: 3,
                 fixedWeekCount: false,
                 selectable: true,
