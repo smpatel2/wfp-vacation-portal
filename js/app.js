@@ -31,6 +31,9 @@ function app() {
         allVacations: [],
         heatmapData: {},
 
+        // --- Holidays ---
+        holidays: {},  // { "2026-05-25": "Memorial Day", ... }
+
         // --- Lifecycle ---
         async init() {
             // Wait for database to be ready (module script may still be loading)
@@ -123,9 +126,10 @@ function app() {
                 check();
             });
 
-            // Load submitted dates for this doctor and all vacations for heatmap
+            // Load submitted dates, all vacations for heatmap, and holidays
             await this.loadSubmittedDates();
             await this.loadAllVacations();
+            await this.loadHolidays();
 
             // Store Alpine's reactive proxy reference
             const alpine = this;
@@ -183,9 +187,10 @@ function app() {
                     alpine.renderCalendarEvents();
                 },
 
-                // Add info icon to heatmap days
+                // Add info icon to heatmap days and holiday tooltips
                 dayCellDidMount: function(arg) {
                     alpine.addHeatmapTooltip(arg.el, arg.date);
+                    alpine.addHolidayPill(arg.el, arg.date);
                 },
 
                 events: []
@@ -246,6 +251,34 @@ function app() {
             } catch (e) {
                 console.error("[Portal] Failed to load all vacations:", e);
                 this.heatmapData = {};
+            }
+        },
+
+        async loadHolidays() {
+            try {
+                const holidays = await window.db.getHolidays();
+                this.holidays = {};
+                for (const h of holidays) {
+                    this.holidays[h.date] = h.name;
+                }
+            } catch (e) {
+                console.error("[Portal] Failed to load holidays:", e);
+                this.holidays = {};
+            }
+        },
+
+        addHolidayPill(cellEl, date) {
+            const dateStr = date.toISOString().split('T')[0];
+            const holidayName = this.holidays[dateStr];
+            if (!holidayName) return;
+
+            const pill = document.createElement('div');
+            pill.className = 'holiday-pill';
+            pill.textContent = holidayName;
+
+            const eventsContainer = cellEl.querySelector('.fc-daygrid-day-events');
+            if (eventsContainer) {
+                eventsContainer.prepend(pill);
             }
         },
 

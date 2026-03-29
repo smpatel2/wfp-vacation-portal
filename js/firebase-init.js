@@ -11,6 +11,38 @@ const MOCK_DOCTORS = [
     "Kemp", "Mackey", "Mathew", "Patel", "Rikert"
 ];
 
+/**
+ * Compute holidays algorithmically for mock mode.
+ * Mirrors the logic in scripts/seed-holidays.js.
+ */
+function computeMockHolidays(year) {
+    function toISO(d) {
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${y}-${m}-${day}`;
+    }
+    function lastMonday(yr, month) {
+        const last = new Date(yr, month + 1, 0);
+        const dow = last.getDay();
+        last.setDate(last.getDate() - (dow === 0 ? 6 : dow - 1));
+        return last;
+    }
+    function nthWeekday(yr, month, weekday, n) {
+        const first = new Date(yr, month, 1);
+        const diff = (weekday - first.getDay() + 7) % 7;
+        return new Date(yr, month, 1 + diff + (n - 1) * 7);
+    }
+    return [
+        { name: "New Year's Day",    date: toISO(new Date(year, 0, 1)) },
+        { name: "Memorial Day",      date: toISO(lastMonday(year, 4)) },
+        { name: "Independence Day",  date: toISO(new Date(year, 6, 4)) },
+        { name: "Labor Day",         date: toISO(nthWeekday(year, 8, 1, 1)) },
+        { name: "Thanksgiving Day",  date: toISO(nthWeekday(year, 10, 4, 4)) },
+        { name: "Christmas Day",     date: toISO(new Date(year, 11, 25)) },
+    ];
+}
+
 const MOCK_CONFIG = {
     password: "test",
     cutoffDate: "2026-12-31"
@@ -36,6 +68,15 @@ function createMockDb() {
 
         async getDoctors() {
             return MOCK_DOCTORS.map((name, i) => ({ name, order: i }));
+        },
+
+        async getHolidays() {
+            // Generate holidays for a wide range in mock mode
+            const holidays = [];
+            for (let y = 2026; y <= 2045; y++) {
+                holidays.push(...computeMockHolidays(y));
+            }
+            return holidays;
         },
 
         async getVacations(doctor) {
@@ -83,6 +124,13 @@ function createFirestoreDb(db) {
         async getDoctors() {
             const { collection, getDocs, orderBy, query } = await fs();
             const q = query(collection(db, "doctors"), orderBy("order"));
+            const snap = await getDocs(q);
+            return snap.docs.map(d => d.data());
+        },
+
+        async getHolidays() {
+            const { collection, getDocs, query } = await fs();
+            const q = query(collection(db, "holidays"));
             const snap = await getDocs(q);
             return snap.docs.map(d => d.data());
         },

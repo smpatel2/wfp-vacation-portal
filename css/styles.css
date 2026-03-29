@@ -619,6 +619,25 @@ main {
 }
 
 /* ============================================
+   HOLIDAY INDICATORS
+   ============================================ */
+.holiday-pill {
+    display: block;
+    background: #470A68;
+    color: var(--white);
+    padding: 1px 5px;
+    border-radius: 8px;
+    font-size: 0.5rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+    pointer-events: none;
+    margin-top: 1px;
+}
+
+/* ============================================
    HEATMAP TOOLTIPS
    ============================================ */
 .heatmap-info-container {
