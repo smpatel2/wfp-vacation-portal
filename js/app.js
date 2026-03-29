@@ -254,12 +254,18 @@ function app() {
             }
         },
 
+        // Short display names for calendar pills
+        holidayShortNames: {
+            "Independence Day": "July 4th",
+            "Thanksgiving Day": "Thanksgiving",
+        },
+
         async loadHolidays() {
             try {
                 const holidays = await window.db.getHolidays();
                 this.holidays = {};
                 for (const h of holidays) {
-                    this.holidays[h.date] = h.name;
+                    this.holidays[h.date] = this.holidayShortNames[h.name] || h.name;
                 }
             } catch (e) {
                 console.error("[Portal] Failed to load holidays:", e);
